@@ -9,8 +9,9 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
+//import org.iesalandalus.programacion.alquilervehiculos.vista.texto.VistaTexto;
 
-import orh.iesalandalus.programacion.alquilervehiculos.vista.Vista;
+import org.iesalandalus.programacion.alquilervehiculos.vista.Vista;
 
 public class Controlador {
 	private Modelo modelo;
@@ -37,8 +38,8 @@ public class Controlador {
 		modelo.insertar(cliente);
 	}
 
-	public void insertar(Turismo turismo) throws OperationNotSupportedException {
-		modelo.insertar(turismo);
+	public void insertar(Vehiculo vehiculo) throws OperationNotSupportedException {
+		modelo.insertar(vehiculo);
 	}
 
 	public void insertar(Alquiler alquiler) throws OperationNotSupportedException {
@@ -49,8 +50,8 @@ public class Controlador {
 		return modelo.buscar(cliente);
 	}
 
-	public Vehiculo buscar(Turismo turismo) {
-		return modelo.buscar(turismo);
+	public Vehiculo buscar(Vehiculo vehiculo) {
+		return modelo.buscar(vehiculo);
 
 	}
 

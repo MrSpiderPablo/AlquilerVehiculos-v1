@@ -2,6 +2,7 @@ package org.iesalandalus.programacion.alquilervehiculos.modelo.negocio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.naming.OperationNotSupportedException;
@@ -103,8 +104,10 @@ public class Alquileres implements IAlquileres {
 		}
 
 		if (cliente == null) {
-			throw new NullPointerException("ERROR: No se puede devolver un alquiler nulo.");
+			throw new NullPointerException("ERROR: No se puede devolver un alquiler de un cliente nulo.");
 		}
+		
+		getAlquilerAbierto(cliente);
 		
 //		if (coleccionAlquileres.contains(cliente)) {
 //			alquiler.setFechaDevolucion(fechaDevolucion);
@@ -113,24 +116,66 @@ public class Alquileres implements IAlquileres {
 //		}
 	}
 	
-	private Alquiler getAlquilerAbierto(Cliente cliente) {
-		for(Alquiler coleccionAlquiler : coleccionAlquileres) {
+	private Alquiler getAlquilerAbierto(Cliente cliente) throws OperationNotSupportedException{
+		Alquiler abierto = null;
+//		for(Alquiler coleccionAlquiler : coleccionAlquileres) {
+//			if (coleccionAlquiler.getFechaDevolucion() == null) 
+//			{	
+//				if (coleccionAlquiler.getCliente().equals(cliente)) {
+//					abierto = coleccionAlquiler;
+//				}		
+//			}else {
+//				throw new OperationNotSupportedException("ERROR: No hay ningún alquiler abierto");
+//			}
+		
+		for(Iterator<Alquiler> iterador = coleccionAlquileres.iterator(); iterador.hasNext();) {
 			
+			Alquiler coleccionAlquiler = iterador.next();
+			
+			if (coleccionAlquiler.getFechaDevolucion() == null) {
+				if (coleccionAlquiler.getCliente().equals(cliente)) {
+					abierto = coleccionAlquiler;
+				}
+			}
+			
+			}
+		
+		if (abierto == null) {
+			throw new OperationNotSupportedException("ERROR: No existe ningún alquiler abierto para ese cliente.");
 		}
 		
-		return null;
+		
+		
+		return abierto;
 		
 	}
 	
 	@Override
 	public void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion) throws OperationNotSupportedException{
 		if (vehiculo == null) {
-			throw new NullPointerException("ERROR: No se puede devolver un vehículo nulo.");
+			throw new NullPointerException("ERROR: No se puede devolver un alquiler de un vehículo nulo.");
 		}
+		
+		getAlquilerAbierto(vehiculo);
 	}
 	
-	private Alquiler getAlquilerAbierto(Vehiculo vehiculo) {
-		return null;
+	private Alquiler getAlquilerAbierto(Vehiculo vehiculo) throws OperationNotSupportedException{
+		Alquiler abierto2 = null;
+		for (Iterator<Alquiler> iterador2 = coleccionAlquileres.iterator(); iterador2.hasNext();) {
+			Alquiler coleccionAlquiler = iterador2.next();
+			
+			if (coleccionAlquiler.getFechaDevolucion() == null) {
+				if (coleccionAlquiler.getVehiculo().equals(vehiculo)){
+					abierto2 = coleccionAlquiler;
+				}
+			}
+		}
+		
+		if (abierto2 == null) {
+			throw new OperationNotSupportedException("ERROR: No existe ningún alquiler abierto para ese vehículo.");
+		}
+		
+		return abierto2;
 		
 	}
 

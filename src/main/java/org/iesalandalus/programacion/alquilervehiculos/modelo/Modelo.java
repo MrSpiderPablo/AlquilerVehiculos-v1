@@ -74,13 +74,13 @@ public abstract class Modelo {
 
 	public abstract void insertar(Cliente cliente) throws OperationNotSupportedException;
 
-	public abstract void insertar(Turismo turismo) throws OperationNotSupportedException;
+	public abstract void insertar(Vehiculo vehiculo) throws OperationNotSupportedException;
 
 	public abstract void insertar(Alquiler alquiler) throws OperationNotSupportedException;
 
 	public abstract Cliente buscar(Cliente cliente);
 
-	public abstract Vehiculo buscar(Turismo turismo);
+	public abstract Vehiculo buscar(Vehiculo vehiculo);
 
 	public abstract Alquiler buscar(Alquiler alquiler);
 
@@ -90,17 +90,17 @@ public abstract class Modelo {
 
 	public abstract void borrar(Cliente cliente) throws OperationNotSupportedException;
 
-	public abstract void borrar(Vehiculo turismo) throws OperationNotSupportedException;
+	public abstract void borrar(Vehiculo vehiculo) throws OperationNotSupportedException;
 
 	public abstract void borrar(Alquiler alquiler) throws OperationNotSupportedException;
 
 	public abstract Cliente getListaClientes();
 
-	public abstract Turismo getListaVehiculos();
+	public abstract Vehiculo getListaVehiculos();
 
 	public abstract Alquiler getListaAlquileres();
 
 	public abstract Alquiler getListaAlquileres(Cliente cliente);
 
-	public abstract Alquiler getListaAlquileres(Vehiculo turismo);
+	public abstract Alquiler getListaAlquileres(Vehiculo vehiculo);
 }

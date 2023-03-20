@@ -2,7 +2,11 @@ package org.iesalandalus.programacion.alquilervehiculos.vista.texto;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
@@ -10,7 +14,10 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.vista.Vista;
 
 public class VistaTexto extends Vista{
-
+	
+	public VistaTexto() {
+		super();
+	}
 	@Override
 	public void comenzar() {
 		Consola.mostrarMenuAcciones();
@@ -20,6 +27,60 @@ public class VistaTexto extends Vista{
 	public void terminar() {
 		
 		System.out.println("Servicio cumplido. Hasta la vista, babe");
+		
+	}
+	
+	public void insertarCliente() throws OperationNotSupportedException {
+		
+		System.out.print("Nos encontramos en la opción número uno.");
+		
+		Consola.leerCliente();
+		
+		Cliente cliente = null;
+		getControlador().insertar(cliente);
+	}
+	
+	public void insertarVehiculo() throws OperationNotSupportedException {
+		System.out.print("Nos encontramos en la opción número dos.");
+		
+		Consola.leerVehiculo();
+		
+		Vehiculo vehiculo = null;
+		getControlador().insertar(vehiculo);
+	}
+	
+	public void insertarAlquiler() throws OperationNotSupportedException{
+		System.out.print("Nos encontramos en la opción número tres.");
+		
+		Consola.leerAlquiler();
+		
+		Alquiler alquiler = null;
+		getControlador().insertar(alquiler);
+	}
+	
+	public void buscarCliente() {
+		System.out.print("Nos encontramos en la opción número cuatro.");
+		
+		Consola.leerClienteDni();
+		
+		Cliente cliente = null;
+		getControlador().buscar(cliente);
+	}
+	
+	public void buscarVehiculo() {
+		System.out.print("Nos encontramos en la opción número cinco.");
+		
+		Consola.leerVehiculoMatricula();
+		
+		Vehiculo vehiculo = null;
+		getControlador().buscar(vehiculo);
+	}
+	
+	public void buscarAlquiler() {
+		System.out.print("Nos encontramos en la opción número seis.");
+		
+		Consola.leerClienteDni();
+		Consola.leerVehiculoMatricula();
 		
 	}
 	
@@ -75,7 +136,17 @@ public class VistaTexto extends Vista{
 		}
 	}
 	
-	public void listarAlquileresVehiculos() {
+	public void mostrarEstadisticasMensualesTipoVehiculo() {
+		inicializarEstadisticas();
+	}
+	
+	private Map<TipoVehiculo, Integer> inicializarEstadisticas(){
+		Map<TipoVehiculo, Integer> estadisticas = new EnumMap<>(TipoVehiculo.class);
+		estadisticas.put(TipoVehiculo.TURISMO, 0);
+		estadisticas.put(TipoVehiculo.AUTOBUS, 1);
+		estadisticas.put(TipoVehiculo.FURGONETA, 2);
+		
+		return estadisticas;
 		
 	}
 	

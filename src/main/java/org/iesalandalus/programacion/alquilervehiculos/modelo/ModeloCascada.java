@@ -18,12 +18,22 @@ public class ModeloCascada extends Modelo{
 	@Override
 	public void insertar(Cliente cliente) throws OperationNotSupportedException {
 		
+		if (cliente == null) {
+			throw new NullPointerException("ERROR: No se puede insertar un cliente nulo.");
+		}
+		
+		getClientes().insertar(new Cliente(cliente));
 		
 	}
 
 	@Override
-	public void insertar(Turismo turismo) throws OperationNotSupportedException {
+	public void insertar(Vehiculo vehiculo) throws OperationNotSupportedException {
 		
+		if (vehiculo == null) {
+			throw new NullPointerException("ERROR: No se puede insertar un turismo nulo.");
+		}
+		
+		getVehiculos().insertar(Vehiculo.copiar(vehiculo));
 		
 	}
 
@@ -40,7 +50,7 @@ public class ModeloCascada extends Modelo{
 	}
 
 	@Override
-	public Vehiculo buscar(Turismo turismo) {
+	public Vehiculo buscar(Vehiculo vehiculo) {
 		
 		return null;
 	}
@@ -70,7 +80,7 @@ public class ModeloCascada extends Modelo{
 	}
 
 	@Override
-	public void borrar(Vehiculo turismo) throws OperationNotSupportedException {
+	public void borrar(Vehiculo vehiculo) throws OperationNotSupportedException {
 		
 		
 	}
@@ -88,7 +98,7 @@ public class ModeloCascada extends Modelo{
 	}
 
 	@Override
-	public Turismo getListaVehiculos() {
+	public Vehiculo getListaVehiculos() {
 		
 		return null;
 	}
@@ -106,7 +116,7 @@ public class ModeloCascada extends Modelo{
 	}
 
 	@Override
-	public Alquiler getListaAlquileres(Vehiculo turismo) {
+	public Alquiler getListaAlquileres(Vehiculo vehiculo) {
 		
 		return null;
 	}

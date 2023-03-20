@@ -4,7 +4,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Autobus;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Furgoneta;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 public class Consola {
@@ -14,6 +19,15 @@ public class Consola {
 	
 	private Consola() {
 		
+	}
+	
+	public static void mostrarCabecera(String mensaje) {
+		System.out.print(mensaje);
+		String cabecera = "-";
+
+		for (int i = 0; i < mensaje.length(); i++) {
+			System.out.printf("%s//", cabecera);
+		}
 	}
 	
 	public static void mostrarMenuAcciones() {
@@ -71,10 +85,13 @@ public class Consola {
 	private static LocalDate leerFecha(String mensaje, String patron) {
 		System.out.print(mensaje);
 
-		String fecha;
+		String fecha = "";
 		
-
 		LocalDate fechaDef = null;
+		
+		if (patron.equals(PATRON_MES)) {
+			fecha = "01/" + fecha;
+		}
 		
 		try {
 			fecha = Entrada.cadena();
@@ -87,8 +104,37 @@ public class Consola {
 		
 	}
 	
+	public static Cliente leerCliente() {
+		leerCadena("Introduce los datos del cliente: ");
+//		leerNombre();
+//		leerTelefono();
+		leerClienteDni();
+		
+//		String nombre;
+//		
+//		nombre = Entrada.cadena();
+//		
+//		String telefono;
+//		
+//		telefono = Entrada.cadena();
+		
+		String dni;
+		
+		dni = Entrada.cadena();
+		
+		Cliente cliente = null;
+		
+		cliente = new Cliente(leerNombre(), dni, leerTelefono());
+		
+		return cliente;
+		
+	}
+	
 	public static Cliente leerClienteDni() {
-		return null;
+		String dni = "";
+		leerCadena("Introduce el dni del cliente: ");
+		dni = Entrada.cadena();
+		return Cliente.getClienteConDni(dni);
 		
 	}
 	
@@ -99,6 +145,46 @@ public class Consola {
 	
 	public static String leerTelefono() {
 		return leerCadena("Introduce el teléfono del cliente: ");
+	}
+	
+	public static Vehiculo leerVehiculo() {
+		leerCadena("Introduce los datos del vehículo: ");
+		leerVehiculoMatricula();
+		
+		String marca;
+		marca = Entrada.cadena();
+		
+		String modelo;
+		modelo = Entrada.cadena();
+		
+		String matricula;
+		matricula = Entrada.cadena();
+		
+		Vehiculo vehiculo = null;
+		
+		if(vehiculo instanceof Turismo turismo) {
+			int cilindrada = 0;
+			cilindrada = Entrada.entero();
+			vehiculo = new Turismo(marca, modelo, 1000, matricula);
+		}
+		
+		if (vehiculo instanceof Autobus autobus) {
+			int plazas = 0;
+			plazas = Entrada.entero();
+			vehiculo = new Autobus(marca, modelo, 20, matricula);
+		}
+		
+		if (vehiculo instanceof Furgoneta furgoneta) {
+			int pma = 0;
+			pma = Entrada.entero();
+			int plazas = 0;
+			plazas = Entrada.entero();
+			vehiculo = new Furgoneta(marca, modelo, 5000, 6, matricula);
+		}
+		
+		
+		return vehiculo;
+		
 	}
 	
 	private static void mostrarMenuTiposVehiculos() {
@@ -119,13 +205,43 @@ public class Consola {
 		return TipoVehiculo.values()[modelo];
 	}
 	
+	private static Vehiculo leerVehiculo(TipoVehiculo tipoVehiculo) {
+		elegirTipoVehiculo();
+		leerVehiculo();
+		
+		return null;
+		
+	}
+	
+	public static Vehiculo leerVehiculoMatricula() {
+		String matricula = "";
+		leerCadena("Introduce la matrícula del vehículo: ");
+		matricula = Entrada.cadena();
+		return Vehiculo.getVehiculoConMatricula(matricula);
+		
+	}
+	
+	public static Alquiler leerAlquiler() {
+		String patron = PATRON_FECHA;
+		
+		Alquiler alquiler = null;
+		
+		alquiler = new Alquiler(leerCliente(), leerVehiculo(), leerFecha("Introduce la fecha de alquiler: ", patron));
+		
+		return alquiler;
+		
+	}
+	
 	public static LocalDate leerFechaDevolucion() {
-//		return leerFecha("Introduce la fecha de devolución: ");
+		String patron = PATRON_FECHA;
+		return leerFecha("Introduce la fecha de devolucion: " , patron);
+		
 		
 	}
 	
 	public static LocalDate leerMes() {
-		return null;
+		String patron = PATRON_MES;
+		return leerFecha("Introduce el mes: ", patron);
 		
 	}
 }
