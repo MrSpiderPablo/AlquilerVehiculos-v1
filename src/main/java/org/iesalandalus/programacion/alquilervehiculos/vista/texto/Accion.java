@@ -1,45 +1,47 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.texto;
 
+import javax.naming.OperationNotSupportedException;
+
 public enum Accion {
 	SALIR("Salir") {
 		@Override
 		public void ejecutar() {
-		
+		vista.terminar();
 			
 		}
 	},
 	INSERTAR_CLIENTE("Insertar cliente") {
 		@Override
-		public void ejecutar() {
-			
+		public void ejecutar() throws OperationNotSupportedException {
+		vista.insertarCliente();	
 			
 		}
 	},
 	INSERTAR_VEHICULO("Insertar vehiculo") {
 		@Override
-		public void ejecutar() {
-			
+		public void ejecutar() throws OperationNotSupportedException {
+		vista.insertarVehiculo();	
 			
 		}
 	},
 	INSERTAR_ALQUILER("Insertar alquiler") {
 		@Override
-		public void ejecutar() {
-			
+		public void ejecutar() throws OperationNotSupportedException {
+		vista.insertarAlquiler();	
 			
 		}
 	},
 	BUSCAR_CLIENTE("Buscar cliente") {
 		@Override
 		public void ejecutar() {
-			
+		vista.buscarCliente();	
 			
 		}
 	},
 	BUSCAR_VEHICULO("Buscar vehiculo") {
 		@Override
 		public void ejecutar() {
-	
+		vista.buscarVehiculo();
 			
 		}
 	},
@@ -52,8 +54,8 @@ public enum Accion {
 	},
 	MODIFICAR_CLIENTE("Modificar cliente") {
 		@Override
-		public void ejecutar() {
-			
+		public void ejecutar() throws OperationNotSupportedException {
+		vista.modificarCliente();	
 			
 		}
 	},
@@ -73,15 +75,16 @@ public enum Accion {
 	},
 	BORRAR_CLIENTE("Borrar cliente") {
 		@Override
-		public void ejecutar() {
-			
+		public void ejecutar() throws OperationNotSupportedException {
+		vista.borrarCliente();	
 			
 		}
 	},
 	BORRAR_VEHICULO("Borrar vehiculo") {
 		@Override
-		public void ejecutar() {
-			
+		public void ejecutar() throws OperationNotSupportedException {
+		vista.borrarVehiculo();	
+		
 			
 		}
 	},
@@ -95,42 +98,42 @@ public enum Accion {
 	LISTAR_CLIENTES("Listar clientes") {
 		@Override
 		public void ejecutar() {
-			
+		vista.listarClientes();	
 			
 		}
 	},
 	LISTAR_VEHICULOS("Listar vehiculos") {
 		@Override
 		public void ejecutar() {
-			
+		vista.listarVehiculos();	
 			
 		}
 	},
 	LISTAR_ALQUILERES("Listar alquileres") {
 		@Override
 		public void ejecutar() {
-			
+		vista.listarAlquileres();	
 			
 		}
 	},
 	LISTAR_ALQUILERES_CLIENTE("Listar alquileres cliente") {
 		@Override
 		public void ejecutar() {
-			
+		vista.listarAlquileresCliente();	
 			
 		}
 	},
 	LISTAR_ALQUILERES_VEHICULO("Listar alquileres vehiculo") {
 		@Override
 		public void ejecutar() {
-			
+		vista.listarAlquileresVehiculo();
 			
 		}
 	},
 	MOSTRAR_ESTADISTICAS_MENSUALES("Mostrar estadísticas mensuales") {
 		@Override
 		public void ejecutar() {
-			
+		vista.mostrarEstadisticasMensualesTipoVehiculo();	
 			
 		}
 	};
@@ -148,7 +151,7 @@ public enum Accion {
 			
 	}
 	
-	public abstract void ejecutar();
+	public abstract void ejecutar() throws OperationNotSupportedException;
 	
 	private static boolean esOrdinalValido(int ordinal) {
 		return (ordinal < Accion.values().length || ordinal > Accion.values().length);

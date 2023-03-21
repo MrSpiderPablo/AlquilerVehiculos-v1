@@ -6,7 +6,6 @@ import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.IFuenteDatos;
 
@@ -39,42 +38,71 @@ public class ModeloCascada extends Modelo{
 
 	@Override
 	public void insertar(Alquiler alquiler) throws OperationNotSupportedException {
+		if (alquiler == null) {
+			throw new NullPointerException("ERROR: No se puede insertar un alquiler nulo.");
+		}
 		
+		buscar(alquiler.getCliente());
+		buscar(alquiler.getVehiculo());
+		
+		getAlquileres().insertar(new Alquiler(alquiler));
 		
 	}
 
 	@Override
 	public Cliente buscar(Cliente cliente) {
+		if (cliente == null) {
+			throw new NullPointerException("ERROR: No se puede buscar un cliente nulo.");
+		}
 		
-		return null;
+
+		return getClientes().buscar(new Cliente(cliente));
 	}
 
 	@Override
 	public Vehiculo buscar(Vehiculo vehiculo) {
-		
-		return null;
+		if (vehiculo == null) {
+			throw new NullPointerException("ERROR: No se puede buscar ");
+		}
+		return getVehiculos().buscar(Vehiculo.copiar(vehiculo));
 	}
 
 	@Override
 	public Alquiler buscar(Alquiler alquiler) {
-		
-		return null;
+		if (alquiler == null) {
+			throw new NullPointerException("ERROR: No se puede buscar un alquiler nulo.");
+		}
+		return getAlquileres().buscar(new Alquiler(alquiler));
 	}
 
 	@Override
 	public void modificar(Cliente cliente, String nombre, String telefono) throws OperationNotSupportedException {
 		
-		
+		getClientes().modificar(cliente, nombre, telefono);
 	}
 
 	@Override
-	public void devolver(Alquiler alquiler, LocalDate fechaDevolucion) throws OperationNotSupportedException {
+	public void devolver(Cliente cliente, LocalDate fechaDevolucion) throws OperationNotSupportedException {
+		if (cliente == null) {
+			throw new NullPointerException("ERROR: No se puede devolver un cliente nulo.");
+		}
 		
+		getAlquileres().devolver(cliente, fechaDevolucion);
+	}
+	
+	@Override
+	public void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion) throws OperationNotSupportedException{
+		if (vehiculo == null) {
+			throw new NullPointerException("ERROR: No se puede devolver un vehículo nulo.");
+		}
 		
+		getAlquileres().devolver(vehiculo, fechaDevolucion);
 	}
 
 	@Override
 	public void borrar(Cliente cliente) throws OperationNotSupportedException {
+		
+		getAlquileres().get(getListaClientes());
 		
 		
 	}
@@ -82,13 +110,13 @@ public class ModeloCascada extends Modelo{
 	@Override
 	public void borrar(Vehiculo vehiculo) throws OperationNotSupportedException {
 		
-		
+		getAlquileres().get(getListaVehiculos());
 	}
 
 	@Override
 	public void borrar(Alquiler alquiler) throws OperationNotSupportedException {
 		
-		
+		getAlquileres().borrar(alquiler);
 	}
 
 	@Override

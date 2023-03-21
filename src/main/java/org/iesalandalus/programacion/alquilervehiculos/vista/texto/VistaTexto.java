@@ -79,9 +79,55 @@ public class VistaTexto extends Vista{
 	public void buscarAlquiler() {
 		System.out.print("Nos encontramos en la opción número seis.");
 		
+		Consola.leerAlquiler();
+		
+		
+		Alquiler alquiler = null;
+		getControlador().buscar(alquiler);
+		
+	}
+	
+	public void modificarCliente() throws OperationNotSupportedException {
+		System.out.print("Nos encontramos en la opción número siete.");
+		
+		Consola.leerCliente();
+		
+		Cliente cliente = null;
+		String nombre = "";
+		String telefono = "";
+		getControlador().modificar(cliente, nombre, telefono);
+	}
+	
+	public void devolverAlquilerCliente() {
+		System.out.print("Nos encontramos en la opción número ocho.");
+		
 		Consola.leerClienteDni();
+	}
+	
+	public void devolverAlquilerVehiculo() {
+		System.out.print("Nos encontramos en la opción número nueve.");
+		
 		Consola.leerVehiculoMatricula();
 		
+		
+	}
+	
+	public void borrarCliente() throws OperationNotSupportedException {
+		System.out.print("Nos encontramos en la opción número diez.");
+		
+		Consola.leerClienteDni();
+		
+		Cliente cliente = null;
+		getControlador().borrarCliente(cliente);
+	}
+	
+	public void borrarVehiculo() throws OperationNotSupportedException{
+		System.out.print("Nos encontramos en la opción número once.");
+		
+		Consola.leerVehiculoMatricula();
+		
+		Vehiculo vehiculo = null;
+		getControlador().borrarVehiculo(vehiculo);
 	}
 	
 	public void listarClientes() {
@@ -112,8 +158,8 @@ public class VistaTexto extends Vista{
 	
 	public void listarAlquileres() {
 		List<Alquiler>alquileres = getControlador().getAlquileres();
-//		Comparator<Cliente>comparadorCliente = Comparator.comparing(Cliente::getNombre).thenComparing(Cliente::getDni);
-		alquileres.sort(Comparator.comparing(Alquiler::getFechaAlquiler).thenComparing(Alquiler::getFechaDevolucion));
+		Comparator<Cliente>comparadorCliente = Comparator.comparing(Cliente::getNombre).thenComparing(Cliente::getDni);
+		alquileres.sort(Comparator.comparing(Alquiler::getFechaAlquiler).thenComparing(Alquiler::getCliente, comparadorCliente));
 		if (!alquileres.isEmpty()) {
 			for (Alquiler alquiler : alquileres) {
 				System.out.print(alquiler);
@@ -133,6 +179,19 @@ public class VistaTexto extends Vista{
 			}
 		}else {
 			System.out.println("No hay alquileres de clientes que mostrar.");
+		}
+	}
+	
+	public void listarAlquileresVehiculo() {
+		List<Alquiler>alquileresVehiculos = getControlador().getAlquileres();
+		Comparator<Vehiculo>comparadorAlquilerVehiculo = Comparator.comparing(Vehiculo::getMarca).thenComparing(Vehiculo::getModelo).thenComparing(Vehiculo::getMatricula);
+		alquileresVehiculos.sort(Comparator.comparing(Alquiler::getFechaAlquiler).thenComparing(Alquiler::getVehiculo, comparadorAlquilerVehiculo));
+		if (!alquileresVehiculos.isEmpty()) {
+			for (Alquiler alquilerVehiculo : alquileresVehiculos) {
+				System.out.print(alquilerVehiculo);
+			}
+		}else {
+			System.out.println("No hay alquileres de vehículos que mostrar.");
 		}
 	}
 	

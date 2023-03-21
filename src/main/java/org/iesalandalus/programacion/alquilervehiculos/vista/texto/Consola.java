@@ -32,28 +32,31 @@ public class Consola {
 	
 	public static void mostrarMenuAcciones() {
 		System.out.println("Este menú sirve para el manejo de alquiler de diferentes tipos de coches."
-				+"A continuación, te mostramos las siguientes opciones:"
+				+" A continuación, te mostramos las siguientes opciones:"
 	
-					+ "0-. Salir"
-					+ "1-. Insertar cliente"
-					+ "2-. Insertar vehiculo"
-					+ "3-. Insertar alquiler"
-					+ "4-. Buscar cliente"
-					+ "5-. Buscar vehiculo"
-					+ "6-. Buscar alquiler"
-					+ "7-. Modificar cliente"
-					+ "8-. Devolver alquiler cliente"
-					+ "9-. Devolver alquiler vehiculo"
-					+ "10-. Borrar cliente"
-					+ "11-. Borrar vehiculo"
-					+ "12-. Borrar alquiler"
-					+ "13-. Listar clientes"
-					+ "14-. Listar vehiculos"
-					+ "15-. Listar alquileres"
-					+ "16-. Listar alquileres de cliente"
-					+ "17-. Listar alquileres de vehiculo"
-					+ "18-. Mostrar estadísticas mensuales");
+					+ " 0-. Salir "
+					+ " 1-. Insertar cliente"
+					+ " 2-. Insertar vehiculo"
+					+ " 3-. Insertar alquiler"
+					+ " 4-. Buscar cliente"
+					+ " 5-. Buscar vehiculo"
+					+ " 6-. Buscar alquiler"
+					+ " 7-. Modificar cliente"
+					+ " 8-. Devolver alquiler cliente"
+					+ " 9-. Devolver alquiler vehiculo"
+					+ " 10-. Borrar cliente"
+					+  "11-. Borrar vehiculo"
+					+ " 12-. Borrar alquiler"
+					+ " 13-. Listar clientes"
+					+ " 14-. Listar vehiculos"
+					+ " 15-. Listar alquileres"
+					+ " 16-. Listar alquileres de cliente"
+					+ " 17-. Listar alquileres de vehiculo"
+					+ " 18-. Mostrar estadísticas mensuales");
 	}
+	
+	
+	
 	
 	public static Accion elegirAccion() {
 		int accion;
@@ -165,13 +168,13 @@ public class Consola {
 		if(vehiculo instanceof Turismo turismo) {
 			int cilindrada = 0;
 			cilindrada = Entrada.entero();
-			vehiculo = new Turismo(marca, modelo, 1000, matricula);
+			vehiculo = new Turismo(marca, modelo, cilindrada, matricula);
 		}
 		
 		if (vehiculo instanceof Autobus autobus) {
 			int plazas = 0;
 			plazas = Entrada.entero();
-			vehiculo = new Autobus(marca, modelo, 20, matricula);
+			vehiculo = new Autobus(marca, modelo, plazas, matricula);
 		}
 		
 		if (vehiculo instanceof Furgoneta furgoneta) {
@@ -179,7 +182,7 @@ public class Consola {
 			pma = Entrada.entero();
 			int plazas = 0;
 			plazas = Entrada.entero();
-			vehiculo = new Furgoneta(marca, modelo, 5000, 6, matricula);
+			vehiculo = new Furgoneta(marca, modelo, pma, plazas, matricula);
 		}
 		
 		
